@@ -34,14 +34,15 @@ Node<T> *KdTree<T>::NNS ( T query[] ) {
         throw TreeEmptyError();
     }
 
+    // initialize an "empty" Node
     T zeros[2] = {0, 0};
-    KdTree<T>::Node *best_point = this->createNode(zeros);
+    KdTree<T>::Node *best_node = this->createNode(zeros);
     
     T best_dist = __INT_MAX__;
 
-    this->NNS_help(query, this->root, best_point, best_dist);
+    this->NNS_help(query, this->root, best_node, best_dist);
 
-    return best_point;
+    return best_node;
 }
 
 template <typename T>
@@ -49,7 +50,10 @@ Node<T> *KdTree<T>::createNode ( T point[] ) {
     Node *node;
     node = new Node();
     node->left = node->right = nullptr;
-    node->point = point;
+    node->point = new T[this->dimensions];
+    for (int i = 0; i < this->dimensions; i++) {
+        node->point[i] = point[i];
+    }
     return node;
 }
 
@@ -116,30 +120,28 @@ void KdTree<T>::NNS_help ( T query[], Node *node, Node *best_point, T &best_dist
     }
 }
 
-int main () {
+// int main () {
     
-    KdTree<double> kd(2);
+//     KdTree<double> kd(2);
 
-    double points[][2] = {
-        {3, 6},
-        {17, 15},
-        {13, 15},
-        {6, 12},
-        {9, 1},
-        {2, 7},
-        {10, 19}
-    };
+//     double points[][2] = {
+//         {3, 6},
+//         {17, 15},
+//         {13, 15},
+//         {6, 12},
+//         {9, 1},
+//         {2, 7},
+//         {10, 19}
+//     };
 
-    for (auto point : points) {
-        kd.insert(point);
-    }
+//     for (auto point : points) {
+//         kd.insert(point);
+//     }
 
-    double query[2] = {17.5, 5};
+//     double query[2] = {17.5, 5};
 
-    double point[2] = {};
-    point[0] = kd.NNS(query)->point[0];
-    point[1] = kd.NNS(query)->point[1];
-    std::cout << "Nearest Neighbor: " << "(" << point[0] << ", " << point[1] << ")" << std::endl;
+//     KdTree<double>::Node *best_node = kd.NNS(query);
+//     std::cout << "Nearest Neighbor: " << "(" << best_node->point[0] << ", " << best_node->point[1] << ")" << std::endl;
 
-    return 0;
-}
+//     return 0;
+// }
