@@ -119,29 +119,3 @@ void KdTree<T>::NNS_help ( T query[], Node *node, Node *best_point, T &best_dist
         }
     }
 }
-
-// int main () {
-    
-//     KdTree<double> kd(2);
-
-//     double points[][2] = {
-//         {3, 6},
-//         {17, 15},
-//         {13, 15},
-//         {6, 12},
-//         {9, 1},
-//         {2, 7},
-//         {10, 19}
-//     };
-
-//     for (auto point : points) {
-//         kd.insert(point);
-//     }
-
-//     double query[2] = {17.5, 5};
-
-//     KdTree<double>::Node *best_node = kd.NNS(query);
-//     std::cout << "Nearest Neighbor: " << "(" << best_node->point[0] << ", " << best_node->point[1] << ")" << std::endl;
-
-//     return 0;
-// }
