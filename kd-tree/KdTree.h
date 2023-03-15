@@ -43,12 +43,12 @@ class KdTree {
      * @throws TreeEmptyError when searching an empty tree.
      * @throws InvalidEntryError if `query` is not of length k.
     */
-    Node *NNS ( T query[] );
+    KdTree<T>::Node *NNS ( T query[] );
 
     private:
 
     unsigned dimensions;
-    Node *root;
+    KdTree<T>::Node *root;
 
     /**
      * Create a new Node.
@@ -57,7 +57,7 @@ class KdTree {
      * 
      * @return pointer to the new Node.
     */
-    Node *createNode ( T point[] );
+    KdTree<T>::Node *createNode ( T point[] );
 
     /**
      * Euclidean distance.
@@ -75,7 +75,7 @@ class KdTree {
      * @param point array of type T with k length. Point to insert in the tree.
      * @param depth keep track of the depth during recursion. Initial call shouldn't provide a value.
     */
-    void insert_help ( Node **root, T point[], unsigned depth = 0 );
+    void insert_help ( KdTree<T>::Node **root, T point[], unsigned depth = 0 );
 
     /**
      * Nearest Neighbor Search recursive helper function.
@@ -86,7 +86,7 @@ class KdTree {
      * @param best_dist reference to the currently closests distance to the query.
      * @param depth keep track of the depth during recursion. Initial call shouldn't provide a value.
     */
-    void NNS_help ( T query[], Node *node, Node *best_point, T &best_dist = __INT_MAX__, unsigned depth = 0 );
+    void NNS_help ( T query[], KdTree<T>::Node *node, KdTree<T>::Node *best_point, T &best_dist = __INT_MAX__, unsigned depth = 0 );
 
     /**
      * Validate point.

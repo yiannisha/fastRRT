@@ -6,9 +6,6 @@
 #include <iostream>
 
 template <typename T>
-using Node = typename KdTree<T>::Node;
-
-template <typename T>
 KdTree<T>::KdTree ( unsigned dimensions ) {
     this->dimensions = dimensions;
     this->root = nullptr;
@@ -28,7 +25,7 @@ void KdTree<T>::insert ( T point[] ) {
 }
 
 template <typename T>
-Node<T> *KdTree<T>::NNS ( T query[] ) {
+typename KdTree<T>::Node *KdTree<T>::NNS ( T query[] ) {
 
     if (this->root == nullptr) {
         throw TreeEmptyError();
@@ -46,7 +43,7 @@ Node<T> *KdTree<T>::NNS ( T query[] ) {
 }
 
 template <typename T>
-Node<T> *KdTree<T>::createNode ( T point[] ) {
+typename KdTree<T>::Node *KdTree<T>::createNode ( T point[] ) {
     Node *node;
     node = new Node();
     node->left = node->right = nullptr;
@@ -69,7 +66,7 @@ T KdTree<T>::distance ( T a[], T b[] ) {
 }
 
 template <typename T>
-void KdTree<T>::insert_help ( Node **root, T point[], unsigned depth ) {
+void KdTree<T>::insert_help ( KdTree<T>::Node **root, T point[], unsigned depth ) {
     
     if (*root == nullptr) {
         *root = this->createNode(point);
@@ -87,7 +84,7 @@ void KdTree<T>::insert_help ( Node **root, T point[], unsigned depth ) {
 }
 
 template <typename T>
-void KdTree<T>::NNS_help ( T query[], Node *node, Node *best_point, T &best_dist, unsigned depth ) {
+void KdTree<T>::NNS_help ( T query[], KdTree<T>::Node *node, KdTree<T>::Node *best_point, T &best_dist, unsigned depth ) {
     T dist = this->distance(query, node->point);
     
     if (dist < best_dist) {
